@@ -1,0 +1,31 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "A simple TODO application built with Next.js",
+  "main": "src/app/page.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "nextjs",
+    "todo",
+    "react"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^15.2.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "homepage": "https://github.com/yourusername/todo-app#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/todo-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/todo-app/issues"
+  }
+}
