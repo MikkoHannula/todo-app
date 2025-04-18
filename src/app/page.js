@@ -6,9 +6,12 @@ import TODOList from "../components/TODOList";
 
 function Home() {
   const [lists, setLists] = React.useState(() => {
-    const storedLists = localStorage.getItem("todo-lists");
-    if (storedLists) {
-      return JSON.parse(storedLists);
+    // Only access localStorage in browser environment
+    if (typeof window !== 'undefined') {
+      const storedLists = localStorage.getItem("todo-lists");
+      if (storedLists) {
+        return JSON.parse(storedLists);
+      }
     }
     // Create three default lists
     return [
@@ -19,7 +22,10 @@ function Home() {
   });
 
   React.useEffect(() => {
-    localStorage.setItem("todo-lists", JSON.stringify(lists));
+    // Only access localStorage in browser environment
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("todo-lists", JSON.stringify(lists));
+    }
   }, [lists]);
 
   const handleNameChange = (listId, newName) => {
@@ -34,6 +40,8 @@ function Home() {
     ));
   };
 
+  const allListsEmpty = lists.every(list => list.todos.length === 0);
+
   return (
     <div className="wrapper">
       <Header />
@@ -45,6 +53,7 @@ function Home() {
               className="list-name"
               value={list.name}
               onChange={(e) => handleNameChange(list.id, e.target.value)}
+              aria-label="List name"
             />
             <Form 
               todos={list.todos} 
@@ -57,6 +66,9 @@ function Home() {
           </div>
         ))}
       </div>
+      {allListsEmpty && (
+        <p className="empty-state">Lots to do! Let's get organized.</p>
+      )}
     </div>
   );
 }
