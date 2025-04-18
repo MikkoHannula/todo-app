@@ -1,6 +1,6 @@
 import React from "react";
 
-function Form({ setTodos }) {
+function Form({ todos, setTodos }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const value = event.target.todo.value.trim();
@@ -12,11 +12,11 @@ function Form({ setTodos }) {
       id: self.crypto.randomUUID(),
       is_completed: false,
     };
-    setTodos((prevTodos) => {
-      const updatedTodos = [...prevTodos, newTodo];
-      localStorage.setItem("todos", JSON.stringify(updatedTodos));
-      return updatedTodos;
-    });
+    
+    // Ensure we have an array to work with
+    const currentTodos = Array.isArray(todos) ? todos : [];
+    const updatedTodos = [...currentTodos, newTodo];
+    setTodos(updatedTodos);
     event.target.reset();
   };
 
@@ -28,13 +28,16 @@ function Form({ setTodos }) {
           name="todo"
           id="todo"
           placeholder="Write your next task"
-          required
+          onBlur={(e) => {
+            // Allow the input to lose focus even if empty
+            e.target.setCustomValidity('');
+          }}
         />
       </label>
-      <button>
+      <button type="submit">
         <span className="visually-hidden">Submit</span>
-        <svg>
-          <path d="" />
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="#fff"/>
         </svg>
       </button>
     </form>

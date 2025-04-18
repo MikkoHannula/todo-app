@@ -1,10 +1,13 @@
 import React from "react";
 
 function TODOList({ todos, setTodos }) {
+  // Ensure todos is always an array
+  const todoList = Array.isArray(todos) ? todos : [];
+  
   return (
     <ol className="todo_list">
-      {todos?.map((item, index) => (
-        <Item key={index} item={item} todos={todos} setTodos={setTodos} />
+      {todoList.map((item, index) => (
+        <Item key={item.id} item={item} todos={todoList} setTodos={setTodos} />
       ))}
     </ol>
   );
@@ -25,23 +28,12 @@ function Item({ item, todos, setTodos }) {
   }, [editing]);
 
   const completeTodo = () => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === item.id
-          ? { ...todo, is_completed: !todo.is_completed }
-          : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === item.id
+        ? { ...todo, is_completed: !todo.is_completed }
+        : todo
     );
-
-    // Update localStorage after toggling completion
-    const updatedTodos = JSON.stringify(
-      todos.map((todo) =>
-        todo.id === item.id
-          ? { ...todo, is_completed: !todo.is_completed }
-          : todo
-      )
-    );
-    localStorage.setItem("todos", updatedTodos);
+    setTodos(updatedTodos);
   };
 
   const handleEdit = () => {
@@ -49,44 +41,30 @@ function Item({ item, todos, setTodos }) {
   };
 
   const handleDelete = () => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== item.id));
-
-    // Update localStorage after deleting the todo
-    const updatedTodos = JSON.stringify(
-      todos.filter((todo) => todo.id !== item.id)
-    );
-    localStorage.setItem("todos", updatedTodos);
+    const updatedTodos = todos.filter((todo) => todo.id !== item.id);
+    setTodos(updatedTodos);
   };
 
   const handleInputChange = (e) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === item.id ? { ...todo, title: e.target.value } : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === item.id ? { ...todo, title: e.target.value } : todo
     );
+    setTodos(updatedTodos);
   };
 
-  const handleInpuSubmit = (event) => {
+  const handleInputSubmit = (event) => {
     event.preventDefault();
     setEditing(false);
-
-    // Update localStorage after editing the todo
-    const updatedTodos = JSON.stringify(todos);
-    localStorage.setItem("todos", updatedTodos);
   };
 
   const handleInputBlur = () => {
     setEditing(false);
-
-    // Update localStorage after editing the todo
-    const updatedTodos = JSON.stringify(todos);
-    localStorage.setItem("todos", updatedTodos);
   };
 
   return (
     <li id={item?.id} className="todo_item">
       {editing ? (
-        <form className="edit-form" onSubmit={handleInpuSubmit}>
+        <form className="edit-form" onSubmit={handleInputSubmit}>
           <label htmlFor="edit-todo">
             <input
               ref={inputRef}
