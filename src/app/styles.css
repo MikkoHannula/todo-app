@@ -103,6 +103,30 @@ header h1 {
   margin: 0;
 }
 
+.task-counter {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.task-counter .completion_circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FACC15;
+  color: #0d0d0d;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.task-counter .completion_circle p {
+  margin: 0;
+  font-size: 14px;
+}
+
 .form {
   align-self: center;
   width: 100%;

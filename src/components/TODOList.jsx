@@ -1,15 +1,32 @@
 import React from "react";
 
+function TaskCounter({ todos }) {
+  const completedTasks = todos.filter(todo => todo.is_completed).length;
+  const totalTasks = todos.length;
+  const isAllCompleted = completedTasks === totalTasks && totalTasks > 0;
+
+  return (
+    <div className="task-counter">
+      <div className="completion_circle" style={{ backgroundColor: isAllCompleted ? "#22C55E" : "#FACC15" }}>
+        <p className="text_small">{completedTasks}/{totalTasks}</p>
+      </div>
+    </div>
+  );
+}
+
 function TODOList({ todos, setTodos }) {
   // Ensure todos is always an array
   const todoList = Array.isArray(todos) ? todos : [];
   
   return (
-    <ol className="todo_list">
-      {todoList.map((item, index) => (
-        <Item key={item.id} item={item} todos={todoList} setTodos={setTodos} />
-      ))}
-    </ol>
+    <>
+      <TaskCounter todos={todoList} />
+      <ol className="todo_list">
+        {todoList.map((item, index) => (
+          <Item key={item.id} item={item} todos={todoList} setTodos={setTodos} />
+        ))}
+      </ol>
+    </>
   );
 }
 
