@@ -38,7 +38,9 @@ button {
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
+  max-width: none;
+  padding: 24px;
 }
 @media (max-width: 510px) {
   .wrapper {
@@ -50,41 +52,65 @@ button {
 }
 header {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding: 42px;
+  justify-content: center;
+  width: 100%;
+  padding: 24px 0;
 }
+
+header h1 {
+  color: #fff;
+  margin: 0;
+}
+
 .todohero_section {
   border: 1px solid #c2b39a;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   align-self: center;
   width: 90%;
-  max-width: 455px;
-  padding: 12px;
+  max-width: 400px;
+  padding: 16px;
   border-radius: 11px;
 }
-.todohero_section div:last-child {
-  background-color: #88ab33;
-  width: 150px;
-  height: 150px;
-  border-radius: 75px;
-  font-size: 48px;
+
+.tasks_info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tasks_count {
+  color: #88ab33;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.completion_circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  color: #0d0d0d;
 }
+
+.completion_circle p {
+  font-weight: bold;
+  margin: 0;
+}
+
 .form {
   align-self: center;
-  width: 97%;
-  max-width: 455px;
+  width: 100%;
+  max-width: none;
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 38px;
+  margin-top: 24px;
 }
 .form label {
   width: 90%;
@@ -108,27 +134,27 @@ header {
 }
 .todo_list {
   align-self: center;
-  width: 97%;
-  max-width: 455px;
+  width: 100%;
+  max-width: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 27px;
-  margin-bottom: 27px;
-  gap: 27px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 16px;
 }
 .todo_item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: 60px;
   width: 100%;
-  max-width: 455px;
+  max-width: 400px;
   border: 1px solid #c2b39a;
   font-size: 16px;
   background-color: #0d0d0d;
   color: #fff;
-  padding: 12px;
+  padding: 8px 12px;
   border-radius: 8px; /* Optional for rounded corners */
 }
 
@@ -141,19 +167,22 @@ header {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+  width: 100%;
+  padding-right: 12px;
 }
 
 .todo_items_left svg {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  fill: #22c55e; /* Green color */
+  fill: #FACC15;
 }
 
 .todo_items_left p {
   margin: 0;
   text-decoration: none;
   color: #fff;
+  text-align: left;
 }
 
 .todo_items_right {
@@ -166,4 +195,82 @@ header {
   border: none;
   color: #fff;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.todo_items_right button:hover {
+  transform: scale(1.1);
+}
+
+.todo_items_right button svg path {
+  transition: fill 0.2s ease;
+}
+
+.todo_items_right button:hover svg path {
+  fill: #88ab33;
+}
+
+.list_selector {
+  width: 100%;
+  max-width: 200px;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background-color: #1f2937;
+  color: #fff;
+  border: 1px solid #c2b39a;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+}
+
+.list_selector option {
+  background-color: #1f2937;
+  color: #fff;
+  padding: 8px;
+}
+
+.list_selector option:last-child {
+  color: #88ab33;
+}
+
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.list-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #c2b39a;
+}
+
+.list-name {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #c2b39a;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+}
+
+.list-name:hover, .list-name:focus {
+  border-color: #88ab33;
+}
+
+.list-name.editing {
+  background-color: #0d0d0d;
 }

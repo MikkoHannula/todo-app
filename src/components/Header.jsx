@@ -2,12 +2,9 @@ import React from "react";
 
 function Header() {
   return (
-    <>
-      <svg>
-        <path d="" /> 
-      </svg>
-      <h1>TODO</h1>
-    </>
+    <header>
+      <h1 className="text_large">TODO</h1>
+    </header>
   );
 }
 

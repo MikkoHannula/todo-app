@@ -8,7 +8,7 @@ function TODOList({ todos, setTodos }) {
           <Item key={index} item={item} todos={todos} setTodos={setTodos} />
         ))
       ) : (
-        <p>Seems lonely in here, what are you up to?</p>
+        <p>Lots to do! Lets get organized.</p>
       )}
     </ol>
   );
@@ -106,8 +106,8 @@ function Item({ item, todos, setTodos }) {
       ) : (
         <>
           <button className="todo_items_left" onClick={completeTodo}>
-            <svg fill={item.is_completed ? "#22C55E" : "#0d0d0d"}>
-              <circle cx="11.998" cy="11.998" fillRule="nonzero" r="9.998" />
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fillRule="nonzero" fill={item.is_completed ? "#22C55E" : "#FACC15"} />
             </svg>
             <p style={item.is_completed ? { textDecoration: "line-through" } : {}}>
               {item?.title}
@@ -116,14 +116,14 @@ function Item({ item, todos, setTodos }) {
           <div className="todo_items_right">
             <button onClick={handleEdit}>
               <span className="visually-hidden">Edit</span>
-              <svg>
-                <path d="" />
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#c2b39a"/>
               </svg>
             </button>
             <button onClick={handleDelete}>
               <span className="visually-hidden">Delete</span>
-              <svg>
-                <path d="" />
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="#c2b39a"/>
               </svg>
             </button>
           </div>

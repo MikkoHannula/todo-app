@@ -3,13 +3,20 @@ import React from "react";
 function Form({ setTodos }) {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const value = event.target.todo.value;
+    const value = event.target.todo.value.trim();
+    
+    if (!value) return; // Prevent empty tasks
+    
     const newTodo = {
       title: value,
       id: self.crypto.randomUUID(),
       is_completed: false,
     };
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    setTodos((prevTodos) => {
+      const updatedTodos = [...prevTodos, newTodo];
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
+      return updatedTodos;
+    });
     event.target.reset();
   };
 
@@ -21,6 +28,7 @@ function Form({ setTodos }) {
           name="todo"
           id="todo"
           placeholder="Write your next task"
+          required
         />
       </label>
       <button>

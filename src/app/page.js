@@ -2,28 +2,61 @@
 import React from "react";
 import Form from "../components/Form";
 import Header from "../components/Header";
-import TODOHero from "../components/TODOHero";
 import TODOList from "../components/TODOList";
 
 function Home() {
-  const [todos, setTodos] = React.useState([]);
+  const [lists, setLists] = React.useState(() => {
+    const storedLists = localStorage.getItem("todo-lists");
+    if (storedLists) {
+      return JSON.parse(storedLists);
+    }
+    // Create three default lists
+    return [
+      { id: "list1", name: "Personal", todos: [] },
+      { id: "list2", name: "Work", todos: [] },
+      { id: "list3", name: "Shopping", todos: [] }
+    ];
+  });
 
   React.useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-    }
-  }, []);
+    localStorage.setItem("todo-lists", JSON.stringify(lists));
+  }, [lists]);
 
-  const todos_completed = todos.filter((todo) => todo.is_completed === true).length;
-  const total_todos = todos.length;
+  const handleNameChange = (listId, newName) => {
+    setLists(lists.map(list => 
+      list.id === listId ? { ...list, name: newName } : list
+    ));
+  };
+
+  const updateTodos = (listId, newTodos) => {
+    setLists(lists.map(list => 
+      list.id === listId ? { ...list, todos: newTodos } : list
+    ));
+  };
 
   return (
     <div className="wrapper">
       <Header />
-      <TODOHero todos_completed={todos_completed} total_todos={total_todos} />
-      <Form todos={todos} setTodos={setTodos} />
-      <TODOList todos={todos} setTodos={setTodos} />
+      <div className="lists-grid">
+        {lists.map(list => (
+          <div key={list.id} className="list-column">
+            <input
+              type="text"
+              className="list-name"
+              value={list.name}
+              onChange={(e) => handleNameChange(list.id, e.target.value)}
+            />
+            <Form 
+              todos={list.todos} 
+              setTodos={(newTodos) => updateTodos(list.id, newTodos)} 
+            />
+            <TODOList 
+              todos={list.todos} 
+              setTodos={(newTodos) => updateTodos(list.id, newTodos)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
